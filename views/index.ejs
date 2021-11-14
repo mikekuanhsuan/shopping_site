@@ -1,0 +1,136 @@
+<%- include('parts/html-head') %>
+<%- include('parts/navbar') %>
+
+<div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
+    <div class="nano">
+        <div class="nano-content">
+            <a href="index.html" class="nk-nav-logo">
+                <img src="assets/images/logo.png" alt="" width="120">
+            </a>
+            <div class="nk-navbar-mobile-content">
+                <ul class="nk-nav">
+                    <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Navbar Mobile -->
+
+    
+
+    <div class="nk-main">
+        
+            <div class="nk-gap-2"></div>
+        
+
+        
+<div class="container">
+
+    <!-- START: Image Slider -->
+    <div class="nk-image-slider" data-autoplay="2000">
+        
+        <div class="nk-image-slider-item">
+            <img src="assets/images/slide-7.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide-7-thumb.jpg">
+            
+            <div class="nk-image-slider-content">
+                
+                    <h3 class="h4">鬼滅之刃 火之神血風譚 PS4＆PS5 (中日英文版)</h3>
+                    <p class="text-white">化為滅鬼之刃吧！<br>
+                        竈門炭治郎一家慘遭殺害，而為了讓唯一倖存的妹妹．禰豆子變回人類，他將握起刀刃與惡鬼戰鬥。
+                        在單人遊玩模式中，將能夠親自體驗動畫「鬼滅之刃」所描繪的故事！</p>
+                    <a href="/PK030004" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read More</a>
+                
+            </div>
+            
+        </div>
+        
+        <div class="nk-image-slider-item">
+            <img src="assets/images/slide-6.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide-6-thumb.jpg">
+            
+            <div class="nk-image-slider-content">
+                
+                    <h3 class="h4">《異形：特戰菁英》</h3>
+                    <p class="text-white">《異形：戰術小隊》以經典的《異形》宇宙為遊戲背景，是一款多人合作的第三人稱生存射擊遊戲。千錘百鍊的戰術小隊將投身希望渺茫的戰鬥，對抗持續進化的異形威脅。</p>
+                    <a href="/CL060004" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read More</a>
+                
+            </div>
+            
+        </div>
+        
+        <div class="nk-image-slider-item">
+            <img src="assets/images/slide-8.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide-8-thumb.jpg">
+            <div class="nk-image-slider-content">
+                
+                <h3 class="h4">漫威復仇者聯盟</h3>
+                <p class="text-white">漫威復仇者聯盟》結合原創電影化敘事與單人和合作模式*1，為玩家帶來一款震撼的第三人稱動作冒險遊戲。
+                    在線上組成一支最多四人的小隊，駕馭超凡能力，打造豪華英雄陣容，抵禦加劇惡化的威脅，守護地球。
+                   《漫威復仇者聯盟》 將持續推出新英雄和新劇情，帶玩家踏上一場史詩般的旅程，創造空前絕後的復仇者聯盟遊戲體驗。</p>
+                <a href="/SP010003" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read More</a>
+            
+        </div>
+            
+        </div>
+        
+        <div class="nk-image-slider-item">
+            <img src="assets/images/slide-9.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide-9-thumb.jpg">
+            
+            <div class="nk-image-slider-content">
+                
+                    <h3 class="h4">STREET FIGHTER V </h3>
+                    <p class="text-white">自2016年發售至今仍有大量的可遊玩角色、改編服裝及關卡等配信中的《Street Fighter V》，現正推出包含了遊戲本篇及其大量追加DLC在內的《Street Fighter V: Champion Edition》！</p>
+                    <a href="/PK030001" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read More</a>
+                
+            </div>
+            
+        </div>
+        
+
+    </div>
+    <!-- END: Image Slider -->
+
+
+    <div class="nk-gap-2"></div>
+
+        <!-- START: Top 10 Best Sellers -->
+
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Top 10</span> 精選遊戲</span></h3>
+        <div class="nk-gap"></div>
+        <div class="nk-carousel nk-carousel-x4" data-autoplay="5000" data-dots="false" data-cell-align="left" data-arrows="true">
+            <div class="nk-carousel-inner">
+                <% for(let product of rs){%>
+                    <% if(product.top10 >= 1) {%>
+
+                <div><div class="pl-5 pr-5">
+                    <div class="nk-product-cat-3">
+                        <a class="nk-product-image" href="/<%= product.gameid%> ">
+                            <img src="assets/images/products-img/<%= product.gameid%>.jpg" alt="So saying he unbuckled">
+                        </a>
+                        <div class="nk-product-cont">
+                            <div class="nk-gap-1"></div>
+                            <h3 class="nk-product-title h5"><a href="<%= product.gameid%>"><%= product.gamename%></a></h3>
+                            <div class="nk-gap-1"></div>
+                            <div class="nk-product-price"><%= product.price%></div>
+                        </div>
+                    </div>
+                </div></div>
+                <%}%>
+                <%}%>
+                
+                
+            </div>
+        </div>
+        <!-- END: Top 10 Best Sellers -->
+
+</div>
+
+<div class="nk-gap-4"></div>
+
+
+    
+        <!-- START: Page Background -->
+        <img class="hero-background" src="assets/images/index-1.jpg" alt="">
+
+<!-- END: Page Background -->
+<%- include('parts/scripts') %>
+<%- include('parts/html-foot') %>

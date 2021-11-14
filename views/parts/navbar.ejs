@@ -1,0 +1,122 @@
+
+<header class="nk-header nk-header-opaque">
+
+    
+    
+    <!-- START: Top Contacts -->
+    <div class="nk-contacts-top">
+        <div class="container">
+    
+            <div class="nk-contacts-right">
+                <ul class="nk-contacts-icons">
+                    
+      
+                    
+                    <% if(! session.orders){ %>
+                      
+                    <li>
+                        <a href="/login" data-toggle="modal" data-target="#modalLogin">
+                            <span class="fa fa-user"></span>
+                        </a>
+                    </li>
+                    <% } else { %>
+                        <li style="margin-right: 700px;">
+                            <a href="/set" >
+                                <span class="fas fa-cogs"></span>
+                            </a>
+                     
+                        </li>
+                   
+                        
+                        <li>
+                            <span><%=session.orders.lastname%> <%=session.orders.email%></span>
+                        </li>
+                        <li>
+                            <a href="/mypage" >
+                                <span class="fas fa-history"></span>
+                            </a>
+                     
+                        </li>
+                        <li>
+                            <a href="/logout" >
+                                <span class="fa fa-sign-out""></span>
+                            </a>
+                        </li>
+                       
+                        <% } %>
+
+                    
+                    <li>
+                        <a href="/cart">
+                            <span class="fa fa-shopping-cart"></span>
+                        </a>
+                            <span class="nk-badge num">0</span>
+                       
+                 
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END: Top Contacts -->
+    
+        
+    
+        <!--
+            START: Navbar
+    
+            Additional Classes:
+                .nk-navbar-sticky
+                .nk-navbar-transparent
+                .nk-navbar-autohide
+        -->
+        <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
+            <div class="container">
+                <div class="nk-nav-table">
+                    
+                    <a href="/" class="nk-nav-logo">
+                        <img src="assets/images/logo.png" alt="GoodGames" width="199">
+                    </a>
+                    
+                    <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
+                        
+            <li class="">
+                <a href="/store">
+                    store
+                </a>
+            </li>
+      
+       
+                </div>
+            </div>
+
+
+            
+        </nav>
+        <!-- END: Navbar -->
+    
+    </header>
+
+
+
+    
+<script>
+    
+    function renewCartCount(){
+        $.get('/cart-content', function(data){     
+                console.log(data)
+                let total = 0;
+                if(data && data.cart && data.cart.length){
+                    data.cart.forEach(el=>{
+                        total += el.quantity*1;
+                    });
+                }
+
+                $('.num').text(total) 
+               
+            }, 'json');
+    
+    }
+    renewCartCount();
+</script>

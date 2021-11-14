@@ -1,0 +1,93 @@
+
+<header class="nk-header nk-header-opaque">
+
+    
+    
+    <!-- START: Top Contacts -->
+    <div class="nk-contacts-top">
+        <div class="container">
+    
+            <div class="nk-contacts-right">
+                <ul class="nk-contacts-icons">
+                    
+      
+                    
+                    
+                    <li>
+                        <a href="/cart">
+                            <span class="fa fa-shopping-cart"></span>
+                        </a>
+                            <span class="nk-badge num">0</span>
+                       
+                 
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END: Top Contacts -->
+    
+        
+    
+        <!--
+            START: Navbar
+    
+            Additional Classes:
+                .nk-navbar-sticky
+                .nk-navbar-transparent
+                .nk-navbar-autohide
+        -->
+        <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
+            <div class="container">
+                <div class="nk-nav-table">
+                    
+                    <a href="/" class="nk-nav-logo">
+                        <img src="assets/images/logo.png" alt="GoodGames" width="199">
+                    </a>
+                    
+                    <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
+                        
+            <li class="">
+                <a href="/store">
+                    store
+                </a>
+            </li>
+      
+       
+                </div>
+            </div>
+
+
+            
+        </nav>
+        <!-- END: Navbar -->
+    
+    </header>
+
+
+
+    
+<script>
+    
+    function renewCartCount(){
+        $.get('/cart-content', function(data){     
+                console.log(data)
+                let total = 0;
+                if(data && data.cart && data.cart.length){
+                    data.cart.forEach(el=>{
+                        total += el.quantity*1;
+                    });
+                }
+                // num = [] ;
+                // for (let c of data.cart) {
+                //     num =c.quantity;   
+                // }
+                
+                $('.num').text(total) 
+               
+            }, 'json');
+    
+    }
+    renewCartCount();
+    </script>

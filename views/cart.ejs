@@ -1,0 +1,220 @@
+<%- include('parts/html-head') %>
+<%- include('parts/navbar') %>
+
+<div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
+    <div class="nano">
+        <div class="nano-content">
+            <a href="index.html" class="nk-nav-logo">
+                <img src="assets/images/logo.png" alt="" width="120">
+            </a>
+            <div class="nk-navbar-mobile-content">
+                <ul class="nk-nav">
+                    <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Navbar Mobile -->
+
+    
+
+    <div class="nk-main">
+        
+            <!-- START: Breadcrumbs -->
+<div class="nk-gap-1"></div>
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        
+        
+        <li><a href="/">Home</a></li>
+        
+        
+        <li><span class="fa fa-angle-right"></span></li>
+        
+        <li><a href="/store">Store</a></li>
+        
+        
+        <li><span class="fa fa-angle-right"></span></li>
+        
+        <li><span>Cart</span></li>
+        
+    </ul>
+</div>
+<div class="nk-gap-1"></div>
+<!-- END: Breadcrumbs -->
+
+        
+
+        
+<div class="container">
+    <div class="nk-store nk-store-cart">
+        <div class="table-responsive">
+            <form class="formcart" onsubmit="cartcheckForm(); return false;" novalidate>
+
+            <% if(! cart.length){ %>
+                <h2>購物車沒有資料</h2>
+                <% } else { %>
+            <!-- START: Products in Cart -->
+            <table class="table nk-store-cart-products">
+                <tbody>
+                    <% for(let c of cart){ %>
+                        <tr data-sid="<%= c.sid%>">
+                            <td class="nk-product-cart-thumb">
+                                <a href="/<%= c.gameid%>" class="nk-image-box-1 nk-post-image">
+                                    <img src="assets/images/products-img/<%= c.gameid%>.jpg" alt="However, I have reason" width="115">
+                                </a>
+                            </td>
+                            <td class="nk-product-cart-title">
+                                <h5 class="h6">Product:</h5>
+                                <div class="nk-gap-1"></div>
+
+                                <h2 class="nk-post-title h4">
+                                    <a href="/<%= c.gameid%>"><%= c.gamename%></a>
+                                </h2>
+                            </td>
+                
+                            <td class="nk-product-cart-quantity">
+                                <h5 class="h6">Quantity:</h5>
+                                <div class="nk-gap-1"></div>
+
+                                <div>
+                                    <select class="form-control quantity" data-val="<%= c.quantity%>">
+                                        <% for(let i=1; i<=10; i++){ %>
+                                            <option value="<%= i%>" <%= i==c.quantity ? 'selected' : '' %> ><%= i%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="nk-product-cart-total ">
+                                <h5 class="h6">Price:</h5>
+                                <div class="nk-gap-1"></div>
+                                <strong class="price"><%= c.price * c.quantity%></strong>
+                            </td>
+                            <td class="nk-product-cart-remove"><a href="/cart/delete/<%=c.sid%>"><span class="ion-android-close"></span></a></td>
+                        </tr>
+                 
+                        <%}%>
+                </tbody>
+                <tfoot>
+                <tr data-sid="">
+                 
+                    <td class="nk-product-cart-thumb">
+                  
+                    </td>
+                    <td class="nk-product-cart-title">
+         
+                        <div class="nk-gap-1"></div>
+
+                        <h2 class="nk-post-title h4">
+                            <a href="store-product.html"></a>
+                        </h2>
+                    </td>
+           
+                    <td class="nk-product-cart-quantity">
+        
+                        <div class="nk-gap-1"></div>
+
+                        <div class="nk-form">
+       
+                        </div>
+                    </td>
+                    <td class="nk-product-cart-total">
+                        <h5 class="h6">Total:</h5>
+                        <div class="nk-gap-1"></div>
+
+                        <strong class="carttotaol" style="color: red;"></strong>
+                    </td>
+                    <td class="nk-product-cart-remove"></td>
+                </tr>
+                </tfoot>
+            </table>
+            <!-- END: Products in Cart -->
+       
+        </div>
+    
+        <div class="form_btn">
+            <div id="yapsure" class="alert alert-success" role="alert" style="display: none">
+            </div>
+            <button class="submit btn btn-outline-secondary"  type="submit" name="checkout" value="" style="color: white;">確定購買</button>
+        </div>
+    </form>
+        <%}%>
+    </div>
+</div>
+<div class="nk-gap-2"></div>
+
+<%- include('parts/scripts') %>
+
+<script>
+// ===========================================
+// 傳送商品數量及商品的sid 給後端
+// ===========================================
+                                   // 抓到clss=quantity
+    const combo = $('.quantity');
+                                   // 如果改變數量觸發函式
+    combo.on('change', function (event) {                
+        console.log(this);
+        const me = $(this);
+        const qty = me.val();                            // .....value = 當前數量
+        const pk = me.closest('tr').attr('data-sid');    // .....往上找data-sid
+
+                                   // post sid and qty 給後端 
+        $.post('/cart/add', { pk, qty }, function (data) {
+            location.reload();
+            renewCartCount();                           
+        }, 'json');
+    });
+
+// =======END==============
+
+
+// ===========================================
+// 統計價錢總額
+// ===========================================
+
+    var sum = 0 ;
+    $('.price').each(function() {
+        var price = $(this);
+        sum += parseInt(price.text());
+        $('.carttotaol').text(sum)
+    });
+
+
+// ===========================================
+// 確定購買
+// ===========================================
+
+    const info = $('#yapsure');
+    function cartcheckForm() {
+        $.post('/order', $(document.formcart).serialize(), function (data) {
+            console.log(data);
+
+            if (data.success) {
+                info.removeClass('alert-danger').addClass('alert-success');
+                info.html('新增成功');
+                info.slideDown();                   // .....下拉顯示
+                // 新增成功後轉向到列表頁
+                setTimeout(function () {
+                    location.href = '/';
+                }, 3000);
+
+            } else {
+                info.removeClass('alert-success').addClass('alert-danger');
+                info.html(data.error);
+                info.slideDown();
+                // 新增成功後轉向到列表頁
+                setTimeout(function () {
+                    info.slideUp(); // 上捲後隱藏
+                }, 3000);
+            }
+
+            // setTimeout(function () {
+            //         location.href = '/thankyou';
+            //     }, 3000);
+        }, 'json')
+    }
+</script>
+
+
+<%- include('parts/html-foot-cart') %>

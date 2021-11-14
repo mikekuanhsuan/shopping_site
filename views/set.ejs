@@ -1,0 +1,175 @@
+<%- include('parts/html-head') %>
+    <%- include('parts/navbar-sign-up') %>
+        <div class="  p-t-130 p-b-100 font-poppins">
+            <div class="wrapper wrapper--w680">
+                <div class="card card-4"
+                    style="background-color: #ff7fd4; width: 500px;  margin: 0 auto; margin-top: 50px;">
+                    <div class="card-body">
+                        <h3 class="title" style="color: white;font-weight: bold;">個人資料修改</h3>
+
+                        <form name="form99" id="create_customer" onsubmit="checkForm(); return false;">
+                            <div class="table_wrapper">
+                                <table class="form_table">
+                                    <tbody>
+                                        <tr class="name_required">
+                                            <th class="title">
+                                                姓名
+                                            </th>
+                                            <td class="input">
+                                                <span class="last">
+                                                    <input type="text" name="firstname" id="LastName" value="<%=firstname%>" placeholder="姓"
+                                                        autofocus>
+                                                </span>
+                                                <span class="first">
+                                                    <input type="text" name="lastname" id="FirstName" value="<%=lastname%>" placeholder="名">
+                                                </span>
+                                                <p class="error"></p>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="mail_required">
+                                            <th class="title">
+                                                E-mail
+                                            </th>
+                                            <td class="input">
+                                                <input type="email" name="email" id="Email"
+                                                    placeholder="GAME@EXAMPLE.COM" value="<%=email%>" spellcheck="false" autocomplete="off"
+                                                    autocapitalize="off">
+                                                <p class="error"></p>
+                                            </td>
+                                        </tr>
+                                        <tr class="pass_required">
+                                            <th class="title">
+                                                密碼
+                                            </th>
+                                            <td class="input">
+                                                <input type="password" name="password" value="<%=password%>" id="CreatePassword"
+                                                    placeholder="PASS">
+                                                <button type="button" id="chkPasw">  
+                                                <i class="fas fa-eye"></i>
+                                                </button>
+                                                <p class="error"></p>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class="birthday_required">
+                                            <th>
+                                                出生年月日
+                                            </th>
+                                            <td class="input">
+                                                <!-- <div class="birthday_select"> -->
+                                                <input size="4" name="birth_year" value="<%=year%>" id="year" min="1">
+                                                <span>年</span>
+                                                <input size="2" name="birth_month" value="<%=month%>" id="month" min="1" max="12">
+                                                <span>月</span>
+                                                <input size="2" name="birth_day" value="<%=day%>" id="day" min="1" max="31">
+                                                <span>日</span>
+                                                <!-- </div> -->
+                                                <p class="error"></p>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class="pass_required">
+                                            <th class="title">
+                                                地址
+                                            </th>
+                                            <td class="input">
+                                                <textarea id="address" name="address" required="required" rows="5"
+                                                    cols="32"
+                                                    style="text-transform: uppercase;resize: none;"><%=address%></textarea>
+                                                <p class="error"></p>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <div class="form_submit">
+                                    <div id="info" class="alert alert-success" role="alert" style="display: none">
+                                    </div>
+                                    <button class="submit btn btn-outline-secondary" type="submit">修改
+                     
+                                    <script></script>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+
+                
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Jquery JS-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <!-- Vendor JS-->
+        <script src="vendor/select2/select2.min.js"></script>
+        <script src="vendor/datepicker/moment.min.js"></script>
+        <script src="vendor/datepicker/daterangepicker.js"></script>
+
+        <!-- Main JS-->
+        <script src="js/global.js"></script>
+
+
+
+        <!-- START: Page Background -->
+
+        <img class="nk-page-background-top" src="assets/images/bg-top.png" alt="">
+        <img class="nk-page-background-bottom" src="assets/images/bg-top.png" alt="">
+
+        <!-- END: Page Background -->
+
+
+        <%- include('parts/scripts') %>
+
+
+            <script>
+                const info = $('#info');
+                function checkForm() {
+                    $.post('/set', $(document.form99).serialize(), function (data) {
+                        console.log(data);
+                        if (data.success) {
+                            info.removeClass('alert-danger').addClass('alert-success');
+                            info.html('新增成功');
+                            info.slideDown();  // 下拉顯示
+                            // 新增成功後轉向到列表頁
+                            setTimeout(function () {
+                                location.href = '/store';
+                            }, 3000);
+                        } else {
+                            info.removeClass('alert-success').addClass('alert-danger');
+                            info.html(data.error);
+                            info.slideDown();
+                            // 新增成功後轉向到列表頁
+                            setTimeout(function () {
+                                info.slideUp(); // 上捲後隱藏
+                            }, 3000);
+                        }
+                    }, 'json')
+                }
+
+                
+            </script>
+
+            <script>
+                $(document).ready(function () {   
+                    $('#chkPasw').attr('onclick', 'ShowHidePasw()');
+                                        
+                });
+                //密碼顯示或是隱藏
+                function ShowHidePasw() {
+                    var txtPasw = $("#CreatePassword");
+                    //alert(txtPasw.attr("type"));
+                    if (txtPasw.attr("type") == "text") {
+                        txtPasw.attr("type", "password");
+                    }
+                    else {
+                        txtPasw.attr("type", "text");
+
+                    }
+                    
+                }
+            </script>
